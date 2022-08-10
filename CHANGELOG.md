@@ -1,6 +1,5 @@
 Version 2.0.0 (August 11th 2022)
 -----------------------------
-- Project transferred from LCluber account to DWTechs organization
 - Improved regex for better distinction between release branches and others
 - Default pattern now looks for mandatory ticket number or version
 - "feature" is now "feat" for shorter branch names
@@ -11,6 +10,11 @@ Version 2.0.0 (August 11th 2022)
 - Update Prompts dependency
 - Update Command-line-usage dependency
 - Update Command-line-args dependency
+
+
+Version 1.4.1 (August 10th 2022)
+-----------------------------
+- Project transferred from LCluber account to DWTechs organization
 
 
 Version 1.4.0 (March 04th 2021)
