@@ -1,11 +1,12 @@
 Version 2.0.0 (August 11th 2022)
 -----------------------------
-- Improved regex for better distinction between release branches and others
+- New default regex for better distinction between release branches and others
 - Default pattern now looks for mandatory ticket number or version
 - "feature" is now "feat" for shorter branch names
 - "bugfix" and "hotfix" are now "fix" for shorter branch names
-- "build" and "refactor" are replaced by "feat"
-- Update readme file and fix broken links
+- "build" and "refactor" are no longer available. Replaced by "feat"
+- Add "--continue" parameter to prompt the user if the branch name is invalid instead of stopping the process .
+- "--patterns" parameter now accepts several patterns
 - Update CheckHard dependency
 - Update Prompts dependency
 - Update Command-line-usage dependency
@@ -15,6 +16,7 @@ Version 2.0.0 (August 11th 2022)
 Version 1.4.1 (August 10th 2022)
 -----------------------------
 - Project transferred from LCluber account to DWTechs organization
+- Update readme file and fix broken links
 
 
 Version 1.4.0 (March 04th 2021)

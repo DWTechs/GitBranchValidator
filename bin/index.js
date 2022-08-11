@@ -39,11 +39,11 @@ const validator = require("../lib/main.js");
 
 const optionDefinitions = [
   {
-    name: "pattern",
+    name: "patterns",
     alias: "p",
     type: String,
-    multiple: false,
-    description: "Use a custom regex to validate project branch names."
+    multiple: true,
+    description: "Use custom regexps to validate Git branch names for your projects."
   },
   {
     name: "message",
@@ -52,6 +52,13 @@ const optionDefinitions = [
     multiple: false,
     description:
       "Use a custom message at the end of the error message. For example a link to help understand your custom branch name rules."
+  },
+  {
+    name: "continue",
+    alias: "c",
+    type: Boolean,
+    multiple: false,
+    description: "Prompt the user to let him to keep going or not despite the invalid branch name."
   },
   {
     name: "help",
@@ -79,4 +86,4 @@ const usage = commandLineUsage(usageSections);
 
 options.help
   ? console.log(usage)
-  : validator.test(options.pattern, options.message);
+  : validator.test(options.patterns, options.message, options.continue);

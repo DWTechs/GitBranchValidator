@@ -11,7 +11,10 @@
   - [Local](#local)
 - [Usage](#usage)
   - [Command line](#command-line)
-  - [Pattern](#pattern)
+  - [Patterns](#patterns)
+  - [Message](#message)
+  - [Prompt](#prompt)
+  - [Help](#help)
   - [Workflow integration](#workflow-integration)
 - [Contributors](#contributors)
 - [License](#license)
@@ -30,7 +33,7 @@ It's a good way to help developers keep their branch names clean on the reposito
 
 The default pattern follows the principles described [here](https://dwtechs.github.io/efficient-git/branch/).
 
-You can also set your own rules using a [custom pattern](#pattern).
+You can also set your own rules using [custom patterns](#patterns).
 
 ## Installation
 
@@ -73,10 +76,9 @@ Alternatively if you did not install GitBranchValidator globally you can use npx
 $ npx gbvalidator
 ```
 
-Or as an npm script in your package.
+Or as an npm script in your package.json.
 
 ```json
-// package.json
 {
   "scripts": {
     "commit": "gbvalidator"
@@ -84,21 +86,32 @@ Or as an npm script in your package.
 }
 ```
 
-### Pattern
+### Patterns
 
-- Default : **/^(feat|fix|test|doc)\/[A-Z0-9\-\#]{2,25}\/([a-z0-9_\-\.]){3,40}$/**
-- Release : **/^release\/v[a-z0-9\+\-\.]{3,25}$/**
+- Default : **^(feat|fix|test|doc)\/[A-Z0-9\-\#]{2,25}\/([a-z0-9_\-\.]){3,40}$**
+- Release : **^release\/v[a-z0-9\+\-\.]{3,25}$**
 
-The default pattern follows the principles described [here](https://dwtechs.github.io/efficient-git/branch/).
+The patterns follow the principles described [here](https://dwtechs.github.io/efficient-git/branch/).
 
-You can use your own custom pattern by adding an optional regexp :
+You can use your own custom patterns by adding an optional regexp :
 
 ```bash
 $ cd <git-project>
-$ gbvalidator --pattern "^(feat|fix)\/([a-z0-9_#-\.\/]){3,50}$"
+$ gbvalidator --patterns "^(feat|fix)\/([a-z0-9_#-\.\/]){3,50}$"
 ```
 
 _If you use this option for a npm command in package.json, you may need to properly escape your regex in order to get a valid JSON file._
+
+
+You can use several patterns if needed : 
+
+```bash
+$ cd <git-project>
+$ gbvalidator --patterns "pattern1" "pattern2" "pattern3"
+```
+
+If one of them is valid, the branch name will be valid.
+
 
 ### Message
 
@@ -109,18 +122,39 @@ $ cd <git-project>
 $ gbvalidator --message "You can learn more about branch name conventions of this project on https://dwtechs.github.io/efficient-git/branch/"
 ```
 
+### Prompt
+
+If the Branch name is not valid, the process will be blocked by default.
+You can use the option "--continue" to prompt the user instead.
+
+```bash
+$ cd <git-project>
+$ gbvalidator --continue
+```
+
+In this case the user will be prompted about the invalid branch. He will be able to keep going if he choose so.
+
+### Help
+
+You can access the documentation by passing the "help" parameter :
+
+```bash
+$ cd <git-project>
+$ gbvalidator --help
+```
+
+
 ### Workflow integration
 
 Validate branch name on pre-commit with Husky :
-
-You can do it with any other tool, or work on Git pre commit hook directly.
 
 ```bash
 $ npm install husky --save-dev
 ```
 
+In the package.json file :
+
 ```json
-// package.json
 {
   "husky": {
     "hooks": {
@@ -130,13 +164,16 @@ $ npm install husky --save-dev
 }
 ```
 
+You can do it with any other tool, or work on Git pre commit hook directly.
+
 ## options
 
-| Option    | Alias |  Type   |                                             description |
-| :-------- | :---: | :-----: | ------------------------------------------------------: |
-| --pattern |  -p   | string  |                                   to use a custom regex |
-| --message |  -m   | string  | to add a custom message at the end of the error message |
-| --help    |  -h   | boolean |                            to learn about library usage |
+| Option     | Alias |  Type   |                                                                      description |
+| :--------  | :---: | :-----: | -------------------------------------------------------------------------------: |
+| --patterns |  -p   | string  |                               Use a custom regex. You can send multiple patterns |
+| --message  |  -m   | string  |                             Add a custom message at the end of the error message |
+| --continue |  -c   | string  | Prompt the user if the branch name is not valid, instead of stopping the process |
+| --help     |  -h   | boolean |                                                        Learn about library usage |
 
 ## Contributors
 
@@ -160,7 +197,7 @@ To contribute please read **[NOTICE.md](https://github.com/DWTechs/GitBranchVali
 | Name | version |
 | :--- | :----- |
 | @dwtechs/checkhard | 2.18.0 |
-| command-line-args | 5.2.1 |
+| command-line-args  | 5.2.1 |
 | command-line-usage | 6.1.3 |
 | current-git-branch | 1.1.0 |
-| prompts | 2.4.2 |
+| prompts            | 2.4.2 |

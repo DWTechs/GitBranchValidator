@@ -1,110 +1,155 @@
-const pattern   = require("../lib/pattern.js");
-const validator = require("../lib/validate.js");
-const defaultPattern = pattern.default;
-const releasePattern = pattern.release;
+const ValidationService = require("../lib/validate.js");
+const customPatterns = ['^(fut|fax|tost|duc)\\/[A-Z0-9\\#-]{2,25}\\/([a-z0-9_\\.-]){3,40}$', '^releose\\/v[a-z0-9\\+\\.-]{3,25}$'];
 
-// true
+
+// // default pattern
+// // true
 
 test("feat/#124/toto", () => {
-  expect(validator.test("feat/#124/toto", defaultPattern)).toBe(true);
+  expect(ValidationService.checkBranchName("feat/#124/toto", '', '')).toBe(true);
 });
 
 test("feat/NEO-23/toto", () => {
-  expect(validator.test("feat/NEO-23/toto", defaultPattern)).toBe(true);
+  expect(ValidationService.checkBranchName("feat/NEO-23/toto", '', '')).toBe(true);
 });
 
 test("fix/#344/toto", () => {
-  expect(validator.test("fix/#344/toto", defaultPattern)).toBe(true);
+  expect(ValidationService.checkBranchName("fix/#344/toto", '', '')).toBe(true);
 });
 
 test("release/v0.1.1", () => {
-  expect(validator.test("release/v0.1.1", releasePattern)).toBe(true);
+  expect(ValidationService.checkBranchName("release/v0.1.1", '', '')).toBe(true);
 });
 
 test("release/v0.1.1-beta", () => {
-  expect(validator.test("release/v0.1.1-beta", releasePattern)).toBe(true);
+  expect(ValidationService.checkBranchName("release/v0.1.1-beta", '', '')).toBe(true);
 });
 
 test("test/#112/toto", () => {
-  expect(validator.test("test/#112/toto", defaultPattern)).toBe(true);
+  expect(ValidationService.checkBranchName("test/#112/toto", '', '')).toBe(true);
 });
 
 test("doc/#897/toto", () => {
-  expect(validator.test("doc/#897/toto", defaultPattern)).toBe(true);
+  expect(ValidationService.checkBranchName("doc/#897/toto", '', '')).toBe(true);
 });
 
+test("fut/#124/toto", () => {
+  expect(ValidationService.checkBranchName("fut/#124/toto", customPatterns, '')).toBe(true);
+});
 
+test("fax/#124/toto", () => {
+  expect(ValidationService.checkBranchName("fax/#124/toto", customPatterns, '')).toBe(true);
+});
 
-//false
+test("releose/v0.1.1-beta", () => {
+  expect(ValidationService.checkBranchName("releose/v0.1.1-beta", customPatterns, '')).toBe(true);
+});
+
+// //false
 
 test("release/0.1.1", () => {
-  expect(validator.test("release/0.1.1", releasePattern)).toBe(false);
+  expect(ValidationService.checkBranchName("release/0.1.1", '', '')).toBe(false);
 });
 
 test("release/#0.1.1", () => {
-  expect(validator.test("release/#0.1.1", releasePattern)).toBe(false);
+  expect(ValidationService.checkBranchName("release/#0.1.1", '', '')).toBe(false);
 });
 
 test("release/v0.1.1/toto", () => {
-  expect(validator.test("release/v0.1.1/toto", releasePattern)).toBe(false);
+  expect(ValidationService.checkBranchName("release/v0.1.1/toto", '', '')).toBe(false);
 });
 
 test("release/#124/toto", () => {
-  expect(validator.test("release/#124/toto", releasePattern)).toBe(false);
+  expect(ValidationService.checkBranchName("release/#124/toto", '', '')).toBe(false);
 });
 
 test("feat/#124/toto/titi", () => {
-  expect(validator.test("feat/#124/toto/titi", defaultPattern)).toBe(false);
+  expect(ValidationService.checkBranchName("feat/#124/toto/titi", '', '')).toBe(false);
 });
 
 test("feature/#124/toto", () => {
-  expect(validator.test("feature/#124/toto", defaultPattern)).toBe(false);
+  expect(ValidationService.checkBranchName("feature/#124/toto", '', '')).toBe(false);
 });
 
 test("bugfix/#344/toto", () => {
-  expect(validator.test("bugfix/#344/toto", defaultPattern)).toBe(false);
+  expect(ValidationService.checkBranchName("bugfix/#344/toto", '', '')).toBe(false);
 });
 
 test("hotfix/#4561/toto", () => {
-  expect(validator.test("hotfix/#4561/toto", defaultPattern)).toBe(false);
+  expect(ValidationService.checkBranchName("hotfix/#4561/toto", '', '')).toBe(false);
 });
 
 test("feature/toto", () => {
-  expect(validator.test("feature/toto", defaultPattern)).toBe(false);
+  expect(ValidationService.checkBranchName("feature/toto", '', '')).toBe(false);
 });
 
 test("refactor/#765/toto", () => {
-  expect(validator.test("refactor/#765/toto", defaultPattern)).toBe(false);
+  expect(ValidationService.checkBranchName("refactor/#765/toto", '', '')).toBe(false);
 });
 
 test("refactor/toto", () => {
-  expect(validator.test("refactor/toto", defaultPattern)).toBe(false);
+  expect(ValidationService.checkBranchName("refactor/toto", '', '')).toBe(false);
 });
 
 test("test/toto", () => {
-  expect(validator.test("test/toto", defaultPattern)).toBe(false);
+  expect(ValidationService.checkBranchName("test/toto", '', '')).toBe(false);
 });
 
 test("doc/toto", () => {
-  expect(validator.test("doc/toto", defaultPattern)).toBe(false);
+  expect(ValidationService.checkBranchName("doc/toto", '', '')).toBe(false);
 });
 
 test("build/#897/toto", () => {
-  expect(validator.test("build/#897/toto", defaultPattern)).toBe(false);
+  expect(ValidationService.checkBranchName("build/#897/toto", '', '')).toBe(false);
 });
 
 test("feature\toto", () => {
-  expect(validator.test("feature\toto", defaultPattern)).toBe(false);
+  expect(ValidationService.checkBranchName("feature\toto", '', '')).toBe(false);
 });
 
 test("documentation/toto", () => {
-  expect(validator.test("documentation/toto", defaultPattern)).toBe(false);
+  expect(ValidationService.checkBranchName("documentation/toto", '', '')).toBe(false);
 });
 
 test("feat/toto", () => {
-  expect(validator.test("feat/toto", defaultPattern)).toBe(false);
+  expect(ValidationService.checkBranchName("feat/toto", '', '')).toBe(false);
 });
 
 test("DOC/toto", () => {
-  expect(validator.test("DOC/toto", defaultPattern)).toBe(false);
+  expect(ValidationService.checkBranchName("DOC/toto", '', '')).toBe(false);
+});
+
+test("DOC/#567/toto", () => {
+  expect(ValidationService.checkBranchName("DOC/#567/toto", '', '')).toBe(false);
+});
+
+
+// // custom patterns
+
+test("feat/#124/toto", () => {
+  expect(ValidationService.checkBranchName("feat/#124/toto", customPatterns, '')).toBe(false);
+});
+
+test("feat/NEO-23/toto", () => {
+  expect(ValidationService.checkBranchName("feat/NEO-23/toto", customPatterns, '')).toBe(false);
+});
+
+test("fix/#344/toto", () => {
+  expect(ValidationService.checkBranchName("fix/#344/toto", customPatterns, '')).toBe(false);
+});
+
+test("release/v0.1.1", () => {
+  expect(ValidationService.checkBranchName("release/v0.1.1", customPatterns, '')).toBe(false);
+});
+
+test("release/v0.1.1-beta", () => {
+  expect(ValidationService.checkBranchName("release/v0.1.1-beta", customPatterns, '')).toBe(false);
+});
+
+test("test/#112/toto", () => {
+  expect(ValidationService.checkBranchName("test/#112/toto", customPatterns, '')).toBe(false);
+});
+
+test("doc/#897/toto", () => {
+  expect(ValidationService.checkBranchName("doc/#897/toto", customPatterns, '')).toBe(false);
 });

@@ -1,6 +1,6 @@
-const branch    = require("../lib/branch.js");
+const BranchService = require("../lib/branch.js");
 
 test("get branch name", () => {
-  expect(branch.test()).toBeTruthy();
+  expect(BranchService.getBranchName()).toBeTruthy();
 });
 
