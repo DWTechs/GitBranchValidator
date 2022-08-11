@@ -168,12 +168,12 @@ You can do it with any other tool, or work on Git pre commit hook directly.
 
 ## options
 
-| Option     | Alias |  Type   |                                                                      description |
-| :--------  | :---: | :-----: | -------------------------------------------------------------------------------: |
-| --patterns |  -p   | string  |                               Use a custom regex. You can send multiple patterns |
-| --message  |  -m   | string  |                             Add a custom message at the end of the error message |
-| --continue |  -c   | string  | Prompt the user if the branch name is not valid, instead of stopping the process |
-| --help     |  -h   | boolean |                                                        Learn about library usage |
+| Option       | Alias |  Type   |                                                                      description |
+| :----------  | :---: | :-----: | -------------------------------------------------------------------------------: |
+| --patterns   |  -p   | string  |                               Use a custom regex. You can send multiple patterns |
+| --message    |  -m   | string  |                             Add a custom message at the end of the error message |
+| --continue   |  -c   | string  | Prompt the user if the branch name is not valid, instead of stopping the process |
+| --help       |  -h   | boolean |                                                        Learn about library usage |
 
 ## Contributors
 
