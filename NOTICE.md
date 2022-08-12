@@ -35,6 +35,22 @@
 
 - commit your work following [conventional commits rules](https://dwtechs.github.io/efficient-git/conventional-commit/) :
 
+## Docker
+
+## Launch with docker
+ 
+### build image : 
+```bash
+$ cd GitBranchValidator/
+$ docker-compose up -d
+```
+
+### test lib : 
+```bash
+$ cd GitBranchValidator/
+$ docker-compose run gitbranchvalidator
+```
+
 
 ## Folders
 

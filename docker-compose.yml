@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+
+  gitbranchvalidator:
+    build: ./
+    container_name: gitbranchvalidator
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
