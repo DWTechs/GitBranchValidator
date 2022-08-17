@@ -43,22 +43,21 @@ const optionDefinitions = [
     alias: "p",
     type: String,
     multiple: true,
-    description: "Use custom regexps to validate Git branch names for your projects."
+    description: "Use custom regexps instead of the default ones."
   },
   {
     name: "message",
     alias: "m",
     type: String,
     multiple: false,
-    description:
-      "Use a custom message at the end of the error message. For example a link to help understand your custom branch name rules."
+    description: "Use a custom message at the end of the error message. For example a link to help people understand your custom branch name rules."
   },
   {
     name: "continue",
     alias: "c",
     type: Boolean,
     multiple: false,
-    description: "Prompt the user to let him to keep going or not despite the invalid branch name."
+    description: "Prompt the user to let him keep going or not despite the invalid branch name."
   },
   {
     name: "help",
@@ -69,7 +68,6 @@ const optionDefinitions = [
 ];
 
 const options = commandLineArgs(optionDefinitions);
-
 const usageSections = [
   {
     header: "GitBranchValidator",
@@ -84,6 +82,4 @@ const usageSections = [
 ];
 const usage = commandLineUsage(usageSections);
 
-options.help
-  ? console.log(usage)
-  : validator.test(options.patterns, options.message, options.continue);
+options.help ? console.log(usage) : validator.test(options.patterns, options.message, options.continue);
