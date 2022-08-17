@@ -1,4 +1,4 @@
-Version 2.0.0 (August 11th 2022)
+Version 2.0.0 (August 17th 2022)
 -----------------------------
 - New default regex for better distinction between release branches and others
 - Default pattern now looks for mandatory ticket number or version
@@ -13,7 +13,7 @@ Version 2.0.0 (August 11th 2022)
 - Update Command-line-args dependency
 
 
-Version 1.4.1 (August 10th 2022)
+Version 1.4.1 (August 17th 2022)
 -----------------------------
 - Project transferred from LCluber account to DWTechs organization
 - Update readme file and fix broken links
