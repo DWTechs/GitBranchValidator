@@ -58,7 +58,7 @@ const optionDefinitions = [
     alias: "c",
     type: Boolean,
     multiple: false,
-    description: "Prompt the user to let him to keep going or not despite the invalid branch name."
+    description: "Prompt the user to let him keep going or not despite the invalid branch name."
   },
   {
     name: "help",

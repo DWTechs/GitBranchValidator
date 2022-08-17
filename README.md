@@ -124,7 +124,7 @@ $ gbvalidator --message "You can learn more about branch name conventions of thi
 
 ### Prompt
 
-If the Branch name is not valid, the process will be blocked by default.
+If the branch name is not valid, the process will be blocked by default.
 You can use the option "--continue" to prompt the user instead.
 
 ```bash
