@@ -36,7 +36,7 @@
 const commandLineArgs = require("command-line-args");
 const commandLineUsage = require("command-line-usage");
 const validator = require("../lib/main.js");
-
+ 
 const optionDefinitions = [
   {
     name: "patterns",

@@ -1,5 +1,5 @@
 const PatternService = require("../lib/pattern.js");
-const defaultPatterns = [ new RegExp('^(feat|fix|test|doc)\\/[A-Z0-9\\#-]{2,25}\\/([a-z0-9_\\.-]){3,40}$',''), 
+const defaultPatterns = [ new RegExp('^(feat|fix|test|doc)\\/[A-Z0-9\\#-]{2,25}\\/[a-z0-9_\\.-]{3,40}$',''), 
                           new RegExp('^release\\/v[a-z0-9\\+\\.-]{3,25}$', '')
                         ];
 
