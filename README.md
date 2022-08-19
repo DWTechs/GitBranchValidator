@@ -3,8 +3,6 @@
 [![npm version](https://badge.fury.io/js/%40dwtechs%2Fgitbranchvalidator.svg)](https://www.npmjs.com/package/@dwtechs/gitbranchvalidator)
 [![last version release date](https://img.shields.io/github/release-date/DWTechs/GitBranchValidator)](https://www.npmjs.com/package/@dwtechs/gitbranchvalidator)
 ![Jest:coverage](https://img.shields.io/badge/Jest:coverage-100%25-brightgreen.svg)
-[![minified size](https://img.shields.io/bundlephobia/min/@dwtechs/gitbranchvalidator?color=brightgreen)](https://www.npmjs.com/package/@dwtechs/gitbranchvalidator)
-
 
 - [Synopsis](#synopsis)
 - [Motivation](#motivation)
@@ -38,7 +36,12 @@ The default pattern follows the principles described [here](https://dwtechs.gith
 
 You can also set your own rules using [custom patterns](#patterns).
 
+You can validate commit messages as well with [GitCommitValidator](https://github.com/DWTechs/GitCommitValidator)
+
 ## Installation
+
+This library is written in Node.js.
+You must install Node.js and npm in order to run it. 
 
 ### npm
 
@@ -66,10 +69,17 @@ $ yarn add @dwtechs/gitbranchvalidator --dev
 
 ## Usage
 
+**This library is meant to be used in "pre-commit", "commit-msg" or/and "pre-push" Git hook.**
+Thus it is not bound to Javasrcipt applications only and can be used by any git repository.
+
+You can learn more about Git hooks and how ti cutomize them in the [Git Manual](https://git-scm.com/book/en/v2/Customizing-Git-An-Example-Git-Enforced-Policy)
+
+Because hooks aren’t transferred with a clone of a project, you must distribute these scripts some other way and then have your users copy them to their .git/hooks directory and make them executable. You can distribute these hooks within the project or in a separate project, but Git will not set them up automatically for you.
+
+
 ### Command line
 
 ```bash
-$ cd <git-project>
 $ gbvalidator
 ```
 
@@ -91,7 +101,7 @@ Or as an npm script in your package.json.
 
 ### Patterns
 
-- Default : **^(feat|fix|test|doc)\/[A-Z0-9\-\#]{2,25}\/([a-z0-9_\-\.]){3,40}$**
+- Default : **^(feat|fix|test|doc)\/[A-Z0-9\-\#]{2,25}\/[a-z0-9_\-\.]{3,40}$**
 - Release : **^release\/v[a-z0-9\+\-\.]{3,25}$**
 
 The patterns follow the principles described [here](https://dwtechs.github.io/efficient-git/branch/).
@@ -100,16 +110,12 @@ You can use your own custom patterns by adding an optional regexp :
 
 ```bash
 $ cd <git-project>
-$ gbvalidator --patterns "^(feat|fix)\/([a-z0-9_#-\.\/]){3,50}$"
+$ gbvalidator --patterns "^(feat|fix)\\/([a-z0-9_#-\\.\\/]){3,50}$"
 ```
-
-_If you use this option for a npm command in package.json, you may need to properly escape your regex in order to get a valid JSON file._
-
 
 You can use several patterns if needed : 
 
 ```bash
-$ cd <git-project>
 $ gbvalidator --patterns "pattern1" "pattern2" "pattern3"
 ```
 
@@ -121,67 +127,77 @@ If one of them is valid, the branch name will be valid.
 You can customize the end of the error message :
 
 ```bash
-$ cd <git-project>
 $ gbvalidator --message "You can learn more about branch name conventions of this project on https://dwtechs.github.io/efficient-git/branch/"
 ```
 
 ### Prompt
 
-If the Branch name is not valid, the process will be blocked by default.
+If the branch name is not valid, the process will be blocked by default.
 You can use the option "--continue" to prompt the user instead.
 
 ```bash
-$ cd <git-project>
 $ gbvalidator --continue
 ```
 
 In this case the user will be prompted about the invalid branch. He will be able to keep going if he choose so.
+
+_Git hooks are not run in an interactive environment. So this option will fail if used in a Git hook._
 
 ### Help
 
 You can access the documentation by passing the "help" parameter :
 
 ```bash
-$ cd <git-project>
 $ gbvalidator --help
 ```
 
-
 ### Workflow integration
 
-Validate branch name on pre-commit with Husky :
+Validate branch name on pre-push hook by adding the following code in the .git/hooks/pre-push file : 
 
 ```bash
-$ npm install husky --save-dev
+gbvalidator
 ```
 
-In the package.json file :
+Or with tools like Husky In the package.json file :
 
 ```json
 {
   "husky": {
     "hooks": {
-      "pre-commit": "gbvalidator"
+      "pre-push": "gbvalidator"
     }
   }
 }
 ```
+You can do it with any other tool, or work on Git hooks directly.
 
-You can do it with any other tool, or work on Git pre commit hook directly.
+
+You can use GitCommitValidator in the "commit-msg" hook as well : 
+
+```bash
+gbvalidator && gcvalidator -src "$1"
+```
+
+
+You can find git hooks examples in the ./hooks/ folder.
+To install them just paste them in the .git/hooks/ folder of your repositories.
+
+
 
 ## options
 
-| Option       | Alias |  Type   |                                                                      description |
-| :----------  | :---: | :-----: | -------------------------------------------------------------------------------: |
-| --patterns   |  -p   | string  |                               Use a custom regex. You can send multiple patterns |
-| --message    |  -m   | string  |                             Add a custom message at the end of the error message |
-| --continue   |  -c   | string  | Prompt the user if the branch name is not valid, instead of stopping the process |
-| --help       |  -h   | boolean |                                                        Learn about library usage |
+| Option       | Alias |  Type   |                                                                                                          description |
+| :----------  | :---: | :-----: | -------------------------------------------------------------------------------------------------------------------: |
+| --patterns   |  -p   | string  |                                                                   Use a custom regex. You can send multiple patterns |
+| --message    |  -m   | string  |                                                                 Add a custom message at the end of the error message |
+| --continue   |  -c   | string  | Prompt the user if the branch name is not valid, instead of stopping the process. Does not work if used in Git hooks |
+| --help       |  -h   | boolean |                                                                                            Learn about library usage |
 
 ## Contributors
 
 GitBranchValidator is still in development and I would be glad to get all the help you can provide for this project.
-To contribute please read **[NOTICE.md](https://github.com/DWTechs/GitBranchValidator/blob/master/NOTICE.md)** for detailed installation guide.
+To contribute please read **[contributor.md](https://github.com/DWTechs/GitBranchValidator/blob/master/contributor.md)** for detailed installation guide.
 
 ## License
 

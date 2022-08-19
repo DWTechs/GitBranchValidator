@@ -1,3 +1,8 @@
+Version 2.1.0 (August 19th 2022)
+-----------------------------
+- Add Git hooks examples in the ./hooks/ folder
+- Update default pattern regex
+
 Version 2.0.0 (August 17th 2022)
 -----------------------------
 - New default regex for better distinction between release branches and others
