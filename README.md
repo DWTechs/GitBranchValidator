@@ -215,7 +215,7 @@ To contribute please read **[contributor.md](https://github.com/DWTechs/GitBranc
 
 | Name | version |
 | :--- | :----- |
-| @dwtechs/checkhard | 2.18.0 |
+| @dwtechs/checkhard | 2.19.0 |
 | command-line-args  | 5.2.1 |
 | command-line-usage | 6.1.3 |
 | current-git-branch | 1.1.0 |
